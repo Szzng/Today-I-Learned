@@ -11,6 +11,9 @@ class TreeNode:
 
 
 class Solution:
+    def __init__(self):
+        self.result = True
+
     def depth(self, node):
         if node is None: return 0
 
@@ -22,6 +25,5 @@ class Solution:
         return max(left, right) + 1
 
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        self.result = True
         self.depth(root)
         return self.result
