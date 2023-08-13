@@ -1,3 +1,5 @@
+# https://www.acmicpc.net/problem/10986
+
 """
 sums[i]%M == sums[j]%M 이면, (sums[i] - sums[j])%M == 0 이므로, 나머지가  같은 구간의 개수를 구하면 된다.
 
