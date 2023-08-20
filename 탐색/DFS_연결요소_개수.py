@@ -12,19 +12,19 @@ read = sys.stdin.readline
 
 n, m = map(int, read().split())
 
-adj = [[] for _ in range(n + 1)]
+graph = [[] for _ in range(n + 1)]
 visited = [False] * (n + 1)
 
 for _ in range(m):
     s, e = map(int, read().split())
-    adj[s].append(e)
-    adj[e].append(s)
+    graph[s].append(e)
+    graph[e].append(s)
 
 
 def dfs(v):
     visited[v] = True
 
-    for u in adj[v]:
+    for u in graph[v]:
         if not visited[u]:
             dfs(u)
 
