@@ -19,10 +19,10 @@ def bfs_solution():
             now = q.popleft()
             count += 1
 
-            for next_node in graph[now]:
-                if not visited[next_node]:
-                    visited[next_node] = True
-                    q.append(next_node)
+            for child in graph[now]:
+                if not visited[child]:
+                    visited[child] = True
+                    q.append(child)
 
         return count
 
@@ -30,19 +30,21 @@ def bfs_solution():
 
 
 def dfs_solution():
-    visited = [False] * (n + 1)
+    sys.setrecursionlimit(10000)
 
-    def dfs(v):
+    def dfs(v):  # v번 컴퓨터를 해킹했을 때 신뢰받는 컴퓨터의 수를 반환
+        visited = [False] * (n + 1)
         visited[v] = True
         count = 1
 
-        for next_node in graph[v]:
-            if not visited[next_node]:
-                count += dfs(next_node)
+        for child in graph[v]:
+            if not visited[child]:
+                visited[child] = True
+                count += dfs(child) # dfs(child)를 호출하면 child를 해킹했을 때 신뢰받는 컴퓨터의 수를 반환받음
 
         return count
 
-    return [0] + [dfs(i) for i in range(1, n + 1)]
+    return [0] + [dfs(i) for i in range(1, n + 1)]  # 0번 컴퓨터는 없으므로 0을 미리 넣어줌
 
 
 import sys
@@ -60,8 +62,6 @@ for _ in range(m):
 
 # answer = bfs_solution()
 answer = dfs_solution()
-
-print(answer)
 
 max_value = max(answer)
 
