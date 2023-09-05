@@ -34,16 +34,16 @@ max_time = [0] * (n + 1) # 각 노드를 생산하기 위한 최대 시간
 
 while q:
     now = q.popleft()
+    max_time[now] += time[now] # 현재 노드의 생산 시간을 더해줌
 
     for child in graph[now]:
 
-        # 현재 노드의 최대 시간 vs 부모 노드의 최대 시간 + 부모 노드의 생산 시간 중 큰 값을 저장
-        # 부모 노드가 여러 개일 수 있으므로 max_time[child]에는 최대값이 저장되어 있음
-        max_time[child] = max(max_time[child], max_time[now] + time[now])
+        # 현재까지 저장된 값 vs 부모 노드를 생산하는 데 걸리는 시간 중 최대값 저장
+        max_time[child] = max(max_time[child], max_time[now])
 
         indegree[child] -= 1  # 해당 노드와 연결된 간선 제거 (진입차수 1 감소)
         if indegree[child] == 0:  # 진입차수가 0이 되면 큐에 삽입
             q.append(child)
 
 for i in range(1, n + 1):
-    print(max_time[i] + time[i])  # 현재 노드의 최대 시간 + 현재 노드의 생산 시간
+    print(max_time[i])  # 현재 노드의 최대 시간 + 현재 노드의 생산 시간
