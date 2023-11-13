@@ -14,7 +14,7 @@ read = sys.stdin.readline
 n, m = map(int, read().split())
 numbers = [list(map(int, read().split())) for _ in range(n)]
 
-# sums = [[0] * (n+1)] * (n+1) 이렇게 하면 list가 공유되어서 모든 리스트가 같은 값이 나옴
+# sums = [[0] * (n+1)] * (n+1) 이렇게 하면 list가 공유되어서 모든 리스트가 같은 값이 나옴 (같은 주소)
 sums = [[0] * (n+1) for _ in range(n+1)]
 
 for i in range(1, n+1):
