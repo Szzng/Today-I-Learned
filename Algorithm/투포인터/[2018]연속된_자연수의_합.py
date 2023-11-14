@@ -8,13 +8,12 @@ start = end = 0
 while end <= n:
     if total == n:
         cnt += 1
+
+    if total <= n:
         end += 1
         total += end
-    elif total > n:
+    else: # total > n
         total -= start
         start += 1
-    else:
-        end += 1
-        total += end
 
 print(cnt)
