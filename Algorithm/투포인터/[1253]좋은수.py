@@ -11,25 +11,24 @@ n개의 수 중에서 어떤 수가 다른 수 두 개의 합으로 나타낼 �
 """
 
 import sys
-read = sys.stdin.readline
 
-n = int(read())
-numbers = sorted(list(map(int, read().split())))
+n = int(input())
+nums = sorted(list(map(int, sys.stdin.readline().split())))
 cnt = 0
 
-for idx, num in enumerate(numbers):
+for idx, target in enumerate(nums):
     left, right = 0, n - 1
 
     while left < right:
-        if numbers[left] + numbers[right] == num:
+        if nums[left] + nums[right] == target:
             if left != idx and right != idx:
                 cnt += 1
                 break
             elif left == idx:
                 left += 1
-            else:
+            else:  # right == idx
                 right -= 1
-        elif numbers[left] + numbers[right] < num:
+        elif nums[left] + nums[right] < target:
             left += 1
         else:
             right -= 1
