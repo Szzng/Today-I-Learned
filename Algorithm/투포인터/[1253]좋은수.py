@@ -21,6 +21,8 @@ for idx, target in enumerate(nums):
 
     while left < right:
         if nums[left] + nums[right] == target:
+
+            # target 자신을 더하는 경우에는 포인터 변경 및 탐색 계속 수행
             if left != idx and right != idx:
                 cnt += 1
                 break
@@ -28,6 +30,7 @@ for idx, target in enumerate(nums):
                 left += 1
             else:  # right == idx
                 right -= 1
+
         elif nums[left] + nums[right] < target:
             left += 1
         else:
