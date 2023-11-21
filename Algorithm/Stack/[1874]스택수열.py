@@ -44,7 +44,7 @@ for i in range(1, n + 1):
 
     while nums and stack and nums[0] == stack[-1]:
         stack.pop() # O(1)
-        nums.pop(0)  # O(n) : shifting all elements after the popped element
+        nums.pop(0)  # O(n) : shifting all elements after the popped element (inefficient)
         result.append('-')
 
 while stack:
