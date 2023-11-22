@@ -21,6 +21,7 @@ result = [-1] * n
 
 for idx, num in enumerate(nums):
     # 이렇게 하면 스택에는 num을 기준으로 왼쪽에 있는 수 중에서 num보다 큰 수들만 남게 됨.
+    # 결국 스택에는 num보다 큰 수들이 큰 수부터 작은 수 순서로 내림차순 정렬되어 있음.
     while stack and stack[-1][1] < num:
         result[stack.pop()[0]] = num
 
