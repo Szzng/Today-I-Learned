@@ -20,7 +20,7 @@ stack = []
 result = [-1] * n
 
 for idx, num in enumerate(nums):
-    # 이렇게 하면 스택에는 현재 num보다 큰 수만 남게 된다.
+    # 이렇게 하면 스택에는 num을 기준으로 왼쪽에 있는 수 중에서 num보다 큰 수들만 남게 됨.
     while stack and stack[-1][1] < num:
         result[stack.pop()[0]] = num
 
