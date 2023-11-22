@@ -2,7 +2,7 @@
 
 """
 - sys.stdin.readline()을 사용하면 확실히 훨씬 빠르다.
-"""
+""" 
 import sys
 
 read = sys.stdin.readline
