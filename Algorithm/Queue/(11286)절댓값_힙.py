@@ -1,5 +1,9 @@
 # https://www.acmicpc.net/problem/11286
 
+"""
+- 시간복잡도 : N(1≤N≤100,000), 1초 -> O(NlogN) 이내로 해결 필요
+- sys.stdin.readline, sys.stdout.write 이용하지 않고 input, print 이용 시 시간초과
+"""
 
 import sys
 from queue import PriorityQueue
