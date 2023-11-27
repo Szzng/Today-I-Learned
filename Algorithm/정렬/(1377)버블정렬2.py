@@ -27,23 +27,24 @@ for (int i=1; i<=N+1; i++) {
 - 그러나 n의 최대범위가 500,000이므로 버블정렬의 O(n^2)은 시간초과 -> 다른 방법 필요
 
 
-# 안쪽 for문이 몇 번 수행되었는지 확인하는 방법
+# 안쪽 for문이 몇 번 수행되었는지 확인하는 방법 (= swap이 몇 번 일어났는지 확인하는 방법)
 - 안쪽 루프는 1에서 n-j까지, 즉 왼쪽에서 오른쪽으로 이동하면서 swap을 한다.
-- 이는 특정 데이터가 안쪽 루프에서 swap의 왼쪽으로 이동할 수 있는 최대거리가 1이라는 뜻이다.
+- 이는 특정 데이터가 안쪽 루프 1번에 swap의 왼쪽으로 이동할 수 있는 최대거리가 1이라는 뜻이다.
 - 따라서 데이터 정렬 전 index와 정렬 후 index를 비교해 왼쪽으로 가장 많이 이동한 값을 찾으면 된다.
 - 파이썬에서 기본적으로 제공하는 정렬 알고리즘은 O(nlogn)이므로 시간초과가 나지 않음 -> 정렬 후 index를 비교하는 방법으로 해결 가능
 """
 
 import sys
+
 read = sys.stdin.readline
 
 n = int(read())
-nums = [(int(read()), i) for i in range(n)] # 정렬 전 index를 저장하기 위해 tuple로 저장
-sorted_nums = sorted(nums) # 정렬 후 index를 비교하기 위해 정렬, 파이썬 기본 정렬 알고리즘은 O(nlogn)이므로 시간초과가 나지 않음
+nums = [(init_idx, int(read())) for init_idx in range(n)]  # 정렬 전 index를 저장하기 위해 tuple로 저장
+sorted_nums = sorted(nums, key=lambda x: x[1])  # 정렬 후 index를 비교하기 위해 정렬, 파이썬 기본 정렬 알고리즘은 O(nlogn)이므로 시간초과가 나지 않음
 
 maxmove = 0
-for j in range(n):
-    move = sorted_nums[j][1] - j  # 정렬 전 index - 정렬 후 index(=j)
+for idx in range(n):
+    move = sorted_nums[idx][0] - idx  # 정렬 전 index - 정렬 후 index(=idx) = 왼쪽으로 이동한 거리
     if move > maxmove:
         maxmove = move
 
