@@ -19,8 +19,8 @@ def merge_sort(arr):
     right = merge_sort(arr[mid:]) # 오른쪽 부분 정렬
 
     merged = []
-    left_idx = 0
-    right_idx = 0
+    left_idx = right_idx = 0
+
     while left_idx < len(left) and right_idx < len(right):
         if left[left_idx] < right[right_idx]:
             merged.append(left[left_idx])
