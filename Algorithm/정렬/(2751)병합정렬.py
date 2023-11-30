@@ -3,6 +3,8 @@
 """
 병합정렬
 - 분할 정복 알고리즘의 하나
+- 데이터를 최소 단위까지 나누어 정렬한 후, 다시 합치면서 정렬하는 방식
+- 재귀함수를 이용하여 구현
 - 시간복잡도 O(nlogn)
 """
 
@@ -13,8 +15,8 @@ def merge_sort(arr):
 
     mid = len(arr) // 2
 
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
+    left = merge_sort(arr[:mid]) # 왼쪽 부분 정렬
+    right = merge_sort(arr[mid:]) # 오른쪽 부분 정렬
 
     merged = []
     left_idx = 0
