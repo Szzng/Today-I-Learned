@@ -21,18 +21,18 @@
 import sys
 
 sys.setrecursionlimit(10000)  # 재귀 깊이 설정
-read = sys.stdin.readline # 이거 안하면 시간초과
+read = sys.stdin.readline  # 이거 안하면 시간초과
 
 
-n, m = map(int, read().split())
+def make_graph(n, m):
+    graph = [[] for _ in range(n + 1)]
 
-graph = [[] for _ in range(n + 1)]
-visited = [False] * (n + 1)
+    for _ in range(m):
+        u, v = map(int, read().split())
+        graph[u].append(v)
+        graph[v].append(u)
 
-for _ in range(m):
-    u, v = map(int, read().split())
-    graph[u].append(v)
-    graph[v].append(u)
+    return graph
 
 
 def dfs(node):
@@ -42,6 +42,11 @@ def dfs(node):
         if not visited[child]:
             dfs(child)
 
+
+n, m = map(int, read().split())
+
+graph = make_graph(n, m)
+visited = [False] * (n + 1)
 
 connected_component_cnt = 0
 
