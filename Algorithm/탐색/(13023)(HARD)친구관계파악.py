@@ -1,9 +1,11 @@
 # https://www.acmicpc.net/problem/13023
 
 """
-- exit() : 프로그램 종료! 처음 알았음.
+# depth가 5인 경로가 존재하는지 확인하는 문제
+# exit() : 프로그램 종료! 처음 알았음.
 
-- !! visited[v] = False : 인접 리스트 내의 모든 요소를 방문했는데도 더 이상 방문할 곳이 없는 경우(= 조건을 충족시키지 못해 exit이 안된 경우), 방문 여부를 False로 초기화 !!
+# !! visited[v] = False
+- 인접 리스트 내의 모든 요소를 방문했는데도 더 이상 방문할 곳이 없는 경우(= 조건을 충족시키지 못해 exit이 안된 경우), 방문 여부를 False로 초기화
 """
 
 import sys
@@ -22,7 +24,7 @@ for _ in range(m):
 
 
 def dfs(v, depth):
-    if depth == 4:
+    if depth == 5:
         print(1)
         exit()
 
@@ -38,6 +40,6 @@ def dfs(v, depth):
 
 
 for i in range(n):
-    dfs(i, 0)
+    dfs(i, 1)
 
 print(0)
