@@ -1,10 +1,14 @@
 # https://www.acmicpc.net/problem/1260
 
-def make_graph(node_cnt, edge_cnt):
+from collections import deque
+import sys
+
+
+def create_graph(node_cnt, edge_cnt):
     graph = [[] for _ in range(node_cnt + 1)]
 
     for _ in range(edge_cnt):
-        a, b = map(int, read().split())
+        a, b = map(int, sys.stdin.readline().split())
         graph[a].append(b)
         graph[b].append(a)
 
@@ -14,48 +18,50 @@ def make_graph(node_cnt, edge_cnt):
     return graph
 
 
-def make_visited(node_cnt):
+def init_visited(node_cnt):
     return [False] * (node_cnt + 1)
 
 
-def dfs(graph, visited, node, dfs_result=[]):
+def dfs(graph, node, visited=None):
+    if not visited:
+        visited = init_visited(len(graph))
+
     visited[node] = True
-    dfs_result.append(node)
+    result = [node]
 
     for child in graph[node]:
         if not visited[child]:
-            dfs(graph, visited, child, dfs_result)
+            result += dfs(graph, child, visited)
 
-    return dfs_result
+    return result
 
 
-def bfs(graph, visited, start_node):
-    from collections import deque
-
+def bfs(graph, start_node):
     q = deque([start_node])
+    visited = init_visited(len(graph))
     visited[start_node] = True
-    bfs_result = []
+    result = []
 
     while q:
         node = q.popleft()
-        bfs_result.append(node)
+        result.append(node)
 
         for child in graph[node]:
             if not visited[child]:
                 q.append(child)
                 visited[child] = True
 
-    return bfs_result
+    return result
 
 
-import sys
+def main():
+    n, m, v = map(int, sys.stdin.readline().split())
+    graph = create_graph(n, m)
 
-read = sys.stdin.readline
-sys.setrecursionlimit(10000)
+    sys.setrecursionlimit(10000)
+    print(*dfs(graph, v))
+    print(*bfs(graph, v))
 
-n, m, v = map(int, read().split())
 
-graph = make_graph(n, m)
-
-print(*dfs(graph, make_visited(n), v))
-print(*bfs(graph, make_visited(n), v))
+if __name__ == "__main__":
+    main()
