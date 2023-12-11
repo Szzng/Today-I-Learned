@@ -22,7 +22,7 @@ def init_visited(node_cnt):
     return [False] * (node_cnt + 1)
 
 
-def dfs(graph, node, visited=None):
+def dfs1(graph, node, visited=None):
     if not visited:
         visited = init_visited(len(graph))
 
@@ -31,10 +31,25 @@ def dfs(graph, node, visited=None):
 
     for child in graph[node]:
         if not visited[child]:
-            result += dfs(graph, child, visited)
+            result += dfs1(graph, child, visited)
 
     return result
 
+# solution2: dfs에서 recursive한 부분만 따로 함수로 정의하여 사용
+def dfs2(graph, start_node):
+    visited = init_visited(len(graph))
+    result = []
+
+    def dfs_recursive(node):
+        visited[node] = True
+        result.append(node)
+
+        for child in graph[node]:
+            if not visited[child]:
+                dfs_recursive(child)
+
+    dfs_recursive(start_node)
+    return result
 
 def bfs(graph, start_node):
     q = deque([start_node])
@@ -59,7 +74,8 @@ def main():
     graph = create_graph(n, m)
 
     sys.setrecursionlimit(10000)
-    print(*dfs(graph, v))
+    print(*dfs1(graph, v))
+    # print(*dfs2(graph, v))
     print(*bfs(graph, v))
 
 
