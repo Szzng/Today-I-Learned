@@ -32,9 +32,12 @@ while start <= end:
     mid = (start + end) // 2
     count_under_mid = 0
 
-    for i in range(1, N + 1):  # 각 행에서 mid 이하의 수의 개수를 구함
-        count_under_mid += min(mid // i, N)  # mid // i는 i행에서 mid 이하의 수의 개수를 의미함
-    
+    # 각 행별로 mid 이하의 수의 개수를 세어 count에 더함
+    for i in range(1, N + 1):
+        # "mid // i"는 i행(i의 곱셈값들)에서 mid 이하의 수의 개수를 의미함
+        count_under_mid += min(mid // i, N)
+
+    # count_under_mid == k 더라도, 행렬(곱셈표)에 mid 값이 존재하지 않을 수도 있기 때문에 끝까지 탐색해야 함.
     if count_under_mid >= k:  # mid 이하의 수의 개수가 k개 이상이면
         answer = mid  # 정답 후보로 mid를 저장
         end = mid - 1  # mid를 줄여서 다시 탐색
