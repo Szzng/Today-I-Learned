@@ -8,7 +8,7 @@ def solution1(progresses, speeds):
     Q = []
 
     for p, s in zip(progresses, speeds):
-        day_left = -((p - 100) // s) # 올림: '//' 연산자가 내림 나눗셈을 수행하므로, 음수에 대해서는 올림처럼 수행하게 됨.
+        day_left = -((p - 100) // s)  # 올림: '//' 연산자가 내림 나눗셈을 수행하므로, 음수에 대해서는 올림처럼 수행하게 됨.
 
         if Q and Q[-1][0] >= day_left:
             Q[-1][1] += 1
