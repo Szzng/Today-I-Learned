@@ -81,6 +81,7 @@ def solution2(want, number, discount):
 
     return count
 
+
 print(
     solution1(
         ["banana", "apple", "rice", "pork", "pot"],
