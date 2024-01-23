@@ -72,24 +72,30 @@ class PowersLCA:
                 self.parents[k][node] = self.parents[k - 1][self.parents[k - 1][node]]
 
     def get_lca(self, node1, node2):
-        if self.depth[node1] > self.depth[node2]:
-            node1, node2 = node2, node1  # node2가 무조건 더 깊은 노드가 되도록
+        if self.depth[node1] < self.depth[node2]:
+            node1, node2 = node2, node1  # node1이 무조건 더 깊은 노드가 되도록
 
         # 두 노드의 "깊이"가 같아질 때까지 더 깊은 노드를 위로 올림
         for k in range(self.k_max, -1, -1):
-            if pow(2, k) <= self.depth[node2] - self.depth[node1]:
-                if self.depth[node1] <= self.depth[self.parents[k][node2]]:
-                    node2 = self.parents[k][node2]
+            if pow(2, k) <= self.depth[node1] - self.depth[node2]:
+                node1 = self.parents[k][node1]
 
+        # 두 노드가 같아질 때까지(두 노드가 같아지는 순간이 LCA) 두 노드를 2^k씩 동시에 위로 올림
         for k in range(self.k_max, -1, -1):
             if node1 == node2:
-                break
+                return node1
 
+            # 두 노드의 2^k번째 부모가 다르다면, 2^k번째 부모 레벨까지는 두 노드가 다른 경로에 있으며, 아직 LCA에 도달하지 않았음
+            # 그러므로 2^k번째 부모로 노드를 올리고 다시 탐색
             if self.parents[k][node1] != self.parents[k][node2]:
                 node1 = self.parents[k][node1]
                 node2 = self.parents[k][node2]
 
-        return node1 if node1 == node2 else self.parents[0][node1]
+            # self.parents[k][node1] == self.parents[k][node2]인 경우 = 해당 2^k번째 조상이 LCA이거나 혹은 LCA보다 상위에 위치하는 경우
+            # 다음 반복에서 k의 값을 점차 줄여가며 더 작은 크기의 점프로 더 최소인 LCA를 찾아가야 하므로 탐색 계속함
+
+        # 모든 반복을 마치고 나왔는데도 return 되지 않았다면, 두 노드의 LCA는 부모 노드
+        return self.parents[0][node1]
 
 
 lca = PowersLCA(int(sys.stdin.readline()))
