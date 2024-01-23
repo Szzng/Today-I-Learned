@@ -38,7 +38,7 @@ import sys
 from math import ceil, log2
 
 
-class SegmentTree:
+class SumSegmentTree:
     def __init__(self, num_leaves):
         self.num_leaves = num_leaves
         self.tree_height = ceil(log2(num_leaves)) + 1
@@ -84,7 +84,7 @@ class SegmentTree:
 
 N, M, K = map(int, sys.stdin.readline().split())
 
-segment_tree = SegmentTree(N)
+segment_tree = SumSegmentTree(N)
 
 for _ in range(M + K):
     a, b, c = map(int, sys.stdin.readline().split())
