@@ -1,4 +1,4 @@
-# https://school.programmers.co.kr/learn/courses/30/lessons/178871
+# https://school.programmers.co.kr/learn/courses/30/lessons/178871?language=python3
 
 """
 2개의 딕셔너리를 이용해서 서로 키와 값을 교차해 비교하며 문제를 해결했다.
