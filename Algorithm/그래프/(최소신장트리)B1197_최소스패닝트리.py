@@ -23,36 +23,40 @@ C는 음수일 수도 있으며, 절댓값이 1,000,000을 넘지 않는다.
 import sys
 
 
-def find(x):
-    if x == parent[x]:
-        return x
+class UnionFind:  # 유니온파인드로 사이클 생성 여부를 판단
+    def __init__(self, num_nodes):
+        self.parent = [i for i in range(num_nodes + 1)]
 
-    parent[x] = find(parent[x])
-    return parent[x]
+    def find(self, x):
+        if x == self.parent[x]:
+            return x
 
+        self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
 
-def union(x, y):
-    root_x = find(x)
-    root_y = find(y)
+    def union(self, x, y):
+        root_x, root_y = self.find(x), self.find(y)
 
-    if root_x != root_y:
-        parent[root_y] = root_x
+        if root_x != root_y:  # 두 정점의 부모가 같지 않다면 연결 (부모가 같은데 연결하면 사이클이 생김)
+            self.parent[root_y] = root_x
+            return True
+
+        return False
 
 
 num_nodes, num_edges = map(int, sys.stdin.readline().split())
 edges = [list(map(int, sys.stdin.readline().split())) for _ in range(num_edges)]
 edges.sort(key=lambda x: x[2])  # 가중치 기준으로 오름차순 정렬
-parent = [i for i in range(num_nodes + 1)]  # 사이클 생성 여부를 판단하기 위한 유니온 파인드용 부모 리스트
 
 used_edges = 0  # 사용한 에지의 수
 total_weight = 0  # 총 가중치
+uf = UnionFind(num_nodes)
 
 for node1, node2, weight in edges:
-    if used_edges == num_nodes - 1:
+    if used_edges == num_nodes - 1:  # 모든 정점을 연결했다면
         break
 
-    if find(node1) != find(node2):  # 두 정점의 부모가 같지 않다면 (사이클이 생성되지 않는다면)
-        union(node1, node2)
+    if uf.union(node1, node2):
         total_weight += weight
         used_edges += 1
 

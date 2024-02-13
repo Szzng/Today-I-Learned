@@ -48,30 +48,32 @@ class UnionFind:
         return self.parent[x]
 
     def union(self, x, y):
-        root_x = self.find(x)
-        root_y = self.find(y)
+        root_x, root_y = self.find(x), self.find(y)
 
         if root_x != root_y:
             self.parent[root_y] = root_x
+            return True
+        return False
+
+
+def alphabet_to_number(char):
+    if char.islower():
+        return ord(char) - ord('a') + 1
+    elif char.isupper():
+        return ord(char) - ord('A') + 27
+    else:
+        return 0
 
 
 num_nodes = int(sys.stdin.readline())
 edges = []
-lan_length = 0
+total_lan_length = 0
 
 for i in range(num_nodes):
     strings = sys.stdin.readline()
-
     for j, char in enumerate(strings):
-        # 알파벳 순서를 숫자로 변환
-        if char.islower():
-            length = ord(char) - ord('a') + 1
-        elif char.isupper():
-            length = ord(char) - ord('A') + 27
-        else:
-            length = 0
-
-        lan_length += length
+        length = alphabet_to_number(char)
+        total_lan_length += length
 
         if i != j and length != 0:  # 자기 자신이 아니고, 연결 랜선이 있다면
             edges.append((i, j, length))
@@ -80,18 +82,17 @@ edges.sort(key=lambda x: x[2])
 
 used_edges = 0
 used_lan_length = 0
-UF = UnionFind(num_nodes)
+uf = UnionFind(num_nodes)
 
 for node1, node2, length in edges:
     if used_edges == num_nodes - 1:
         break
 
-    if UF.find(node1) != UF.find(node2):
-        UF.union(node1, node2)
+    if uf.union(node1, node2):
         used_lan_length += length
         used_edges += 1
 
 if used_edges == num_nodes - 1:  # 모든 정점을 연결했다면 (최소신장트리는 정점의 수 - 1개의 에지로 구성됨)
-    print(lan_length - used_lan_length)  # 총 랜선 길이에서 총 가중치를 뺌
+    print(total_lan_length - used_lan_length)  # 총 랜선 길이에서 총 가중치를 뺌
 else:  # 모든 정점을 연결하지 못했다면
     print(-1)
