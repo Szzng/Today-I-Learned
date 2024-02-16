@@ -58,7 +58,8 @@ while not q.empty():
     visited[curr_node] = True
 
     for cost_to_next_node, next_node in graph[curr_node]:
-        costs[next_node] = min(costs[next_node], costs[curr_node] + cost_to_next_node)
-        q.put((costs[next_node], next_node))
+        if costs[curr_node] + cost_to_next_node < costs[next_node]:
+            costs[next_node] = costs[curr_node] + cost_to_next_node
+            q.put((costs[next_node], next_node))
 
 print(costs[end_node])

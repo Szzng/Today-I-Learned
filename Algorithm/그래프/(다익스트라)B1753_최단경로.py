@@ -54,8 +54,9 @@ while not q.empty():
 
     for next_node, weight in graph[curr_node]:
         # 현재 저장된 값 vs (부모 노드 최소 거리 + 부모 노드에서 자식 노드로 가는 가중치) 중 작은 값을 저장
-        distance[next_node] = min(distance[next_node], distance[curr_node] + weight)
-        q.put((distance[next_node], next_node))
+        if distance[curr_node] + weight < distance[next_node]:
+            distance[next_node] = distance[curr_node] + weight
+            q.put((distance[next_node], next_node))
 
 for i in range(1, num_nodes + 1):
     print(distance[i] if visited[i] else "INF")
